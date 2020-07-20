@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "dev-watch": "webpack --mode development --watch"
-  },R
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,7 +19,11 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "client-oauth2": "^4.3.1",
+    "qs": "^6.9.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   }
 }
