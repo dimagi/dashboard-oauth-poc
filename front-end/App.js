@@ -6,7 +6,7 @@ import {
   Link,
 } from "react-router-dom";
 
-// import './App.css';
+import './App.sass';
 import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
 import {ApiKey} from "./commcare/ApiKey";
