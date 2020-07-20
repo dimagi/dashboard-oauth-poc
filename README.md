@@ -1,0 +1,33 @@
+# A Proof of Concept OAuth2 Client for CommCare
+
+This project consists of a stateless flask back end and a React front end that
+interact with CommCare via oauth2.
+
+## Back end setup
+
+Installation
+
+```
+pip install flask
+```
+
+Running
+```
+export FLASK_APP=server.py
+flask run
+```
+
+
+## Front end setup
+
+Installation
+
+```
+npm install
+```
+
+Building
+
+```
+npm run dev
+```
