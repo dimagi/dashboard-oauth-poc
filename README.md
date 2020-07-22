@@ -11,6 +11,14 @@ Installation
 pip install flask
 ```
 
+Configuration:
+
+```
+cp settings.example.py settings.py
+```
+
+Then set values appropriately.
+
 Running
 ```
 export FLASK_APP=server.py
@@ -30,4 +38,10 @@ Building
 
 ```
 npm run dev
+```
+
+or
+
+```
+npm run dev-watch
 ```

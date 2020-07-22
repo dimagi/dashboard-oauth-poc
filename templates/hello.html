@@ -5,6 +5,10 @@
   </head>
   <body>
     <div id="root" />
+    <script>
+      const CONFIG = {{ commcare_config|tojson }};
+      console.log(CONFIG);
+    </script>
     <script src="{{ bundle_url }}"></script>
   </body>
 </html>

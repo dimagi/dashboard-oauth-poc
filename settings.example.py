@@ -1,0 +1,21 @@
+
+# not all of these will be used long term, but they helpful in the dev version of this app
+
+COMMCARE_CLIENT_ID = '***'
+COMMCARE_CLIENT_SECRET = '***'
+COMMCARE_REDIRECT_URI = 'http://localhost:3000/auth'
+COMMCARE_AUTH_TOKEN = '***'
+COMMCARE_URL = 'http://localhost:8000'
+COMMCARE_DEFAULT_USERNAME = 'you@example.com'
+COMMCARE_DEFAULT_API_KEY = ''
+
+COMMCARE_DEFAULT_API  = 'http://localhost:8000/a/covid/api/v0.5/configurablereportdata/fd1bc52ecdb89f6a2bc98378f6022d46/?format=json'
+
+# COMMCARE_DEFAULT_API = 'https://www.commcarehq.org/a/sabbatical/api/v0.5/configurablereportdata/15e3195002d8ba6cfa85fa34d9e4a493/'
+# COMMCARE_DEFAULT_API = 'https://www.commcarehq.org/a/ny-dev-cdcms/api/v0.5/configurablereportdata/769f2a4aa1bf152cb296641e7f02ba1a/'
+
+
+COMMCARE_DOMAIN = 'sabbatical'
+COMMCARE_AGGREGATE_REPORT = 'https://www.commcarehq.org/a/ny-dev-cdcms/api/v0.5/configurablereportdata/769f2a4aa1bf152cb296641e7f02ba1a/'
+COMMCARE_LIST_REPORT = 'https://www.commcarehq.org/a/ny-dev-cdcms/api/v0.5/configurablereportdata/bf257c4201f54608f82f1ce2a0dd3f2f/'
+DEV_MODE = True
