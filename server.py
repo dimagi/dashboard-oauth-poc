@@ -13,7 +13,7 @@ def hello_world():
     return render_template(
         'hello.html',
         bundle_url=bundle_url,
-        commcare_config=json.dumps(commcare_config)
+        commcare_config=commcare_config,
     )
 
 
