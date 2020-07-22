@@ -11,12 +11,15 @@ import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
 import {ApiKey} from "./commcare/ApiKey";
 import {getOAuthClient, AuthCallback} from "./commcare/Auth";
+import Config from "./commcare/Config";
 
 function App() {
-  const devMode = process.env.REACT_APP_DEV_MODE || false;
-  const authToken = process.env.REACT_APP_COMMCARE_AUTH_TOKEN;
-  const [username, setUsername] = useState(process.env.REACT_APP_COMMCARE_DEFAULT_USERNAME);
-  const [apiKey, setApiKey] = useState(process.env.REACT_APP_COMMCARE_DEFAULT_API_KEY);
+  const config = Config();
+
+  const devMode = config.COMMCARE_DEV_MODE || false;
+  const authToken = config.COMMCARE_AUTH_TOKEN;
+  const [username, setUsername] = useState(config.COMMCARE_DEFAULT_USERNAME);
+  const [apiKey, setApiKey] = useState(config.COMMCARE_DEFAULT_API_KEY);
   const navLinks = (
     <header>
       <Link to="/">Authentication</Link>
