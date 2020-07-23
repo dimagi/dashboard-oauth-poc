@@ -3,7 +3,7 @@ import {fetchCommCareApi} from "./Client";
 import {listReports} from "./Reports";
 
 function ReportDashboard(props) {
-  const [domain, setDomain] = useState(process.env.REACT_APP_COMMCARE_DOMAIN);
+  const [domain, setDomain] = useState(props.config.COMMCARE_DOMAIN);
   const [allReports, setAllReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
 

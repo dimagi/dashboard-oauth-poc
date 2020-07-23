@@ -3,7 +3,7 @@ import {fetchCommCareApi, getAPIKeyAuthorization, getOAuth2TokenAuthorization} f
 
 
 function ApiExplorer(props) {
-  const [api, setApi] = useState(process.env.REACT_APP_COMMCARE_DEFAULT_API);
+  const [api, setApi] = useState(props.config.COMMCARE_DEFAULT_API);
   const [apiData, setApiData] = useState('')
   const [isLoading, setIsLoading] = useState(false);
   const authorization = props.authToken ?

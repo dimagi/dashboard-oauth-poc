@@ -15,7 +15,6 @@ import Config from "./commcare/Config";
 
 function App() {
   const config = Config();
-
   const devMode = config.COMMCARE_DEV_MODE || false;
   const authToken = config.COMMCARE_AUTH_TOKEN;
   const [username, setUsername] = useState(config.COMMCARE_DEFAULT_USERNAME);
@@ -27,7 +26,7 @@ function App() {
       {devMode ? <Link to="/dashboard">Report Explorer</Link> : '' }
     </header>
   );
-  const oauthClient = getOAuthClient();
+  const oauthClient = getOAuthClient(config);
   return (
     <Router>
       <div className="App">
@@ -36,16 +35,16 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/explorer">
-            <ApiExplorer devMode={devMode} username={username} apiKey={apiKey} authToken={authToken}/>
+            <ApiExplorer config={config} devMode={devMode} username={username} apiKey={apiKey} authToken={authToken}/>
           </Route>
           <Route path="/dashboard">
-            <ReportDashboard username={username} apiKey={apiKey} />
+            <ReportDashboard config={config} username={username} apiKey={apiKey} />
           </Route>
           <Route path="/auth">
-            <AuthCallback oauthClient={oauthClient}/>
+            <AuthCallback config={config} oauthClient={oauthClient}/>
           </Route>
           <Route path="/">
-            <ApiKey devMode={devMode} oauthClient={oauthClient} username={username} apiKey={apiKey}
+            <ApiKey config={config} devMode={devMode} oauthClient={oauthClient} username={username} apiKey={apiKey}
               onUsernameChanged={(username) => setUsername(username)}
               onApiKeyChanged={(apiKey) => setApiKey(apiKey)}
             />
