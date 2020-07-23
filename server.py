@@ -10,22 +10,14 @@ app.config.from_object('settings')
 ACCESS_TOKEN_COOKIE_NAME = 'commcare-access-token'
 REFRESH_TOKEN_COOKIE_NAME = 'commcare-refresh-token'
 
-@app.route('/')
-def home():
-    commcare_config = _get_commcare_config()
-    bundle_url = url_for('static', filename='index-bundle.js')
-    return render_template(
-        'hello.html',
-        bundle_url=bundle_url,
-        commcare_config=commcare_config,
-    )
-
 
 @app.route('/oauth-callback/')
 def oauth_callback():
     """
     The view called by the oauth callback
     """
+    if 'error' in request.args:
+        return "Sorry, that didn't work. Please try again."
     code = request.args['code']
     config = _get_commcare_config()
     auth_config = get_commcare_auth_config(config)
@@ -58,6 +50,19 @@ def oauth_callback():
     else:
         # todo: better handle error case and such
         return "Oops, something went wrong. Please try again."
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def home(path):
+    commcare_config = _get_commcare_config()
+    bundle_url = url_for('static', filename='index-bundle.js')
+    return render_template(
+        'hello.html',
+        bundle_url=bundle_url,
+        commcare_config=commcare_config,
+    )
+
 
 def _get_commcare_config():
     return {k: v for k, v in app.config.items() if k.startswith('COMMCARE_')}
