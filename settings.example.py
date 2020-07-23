@@ -3,7 +3,7 @@
 
 COMMCARE_CLIENT_ID = '***'
 COMMCARE_CLIENT_SECRET = '***'
-COMMCARE_REDIRECT_URI = 'http://localhost:3000/auth'
+COMMCARE_REDIRECT_URI = 'http://localhost:5000/oauth-callback/'
 COMMCARE_AUTH_TOKEN = '***'
 COMMCARE_URL = 'http://localhost:8000'
 COMMCARE_DEFAULT_USERNAME = 'you@example.com'
