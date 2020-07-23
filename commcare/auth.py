@@ -7,4 +7,3 @@ def get_commcare_auth_config(config):
         'authorize_url': f'{config["COMMCARE_URL"]}/oauth/authorize/',
         'redirect_uri': config["COMMCARE_REDIRECT_URI"],
     }
-
