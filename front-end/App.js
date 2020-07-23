@@ -12,11 +12,14 @@ import ReportDashboard from "./commcare/ReportDashboard";
 import {ApiKey} from "./commcare/ApiKey";
 import {getOAuthClient, AuthCallback} from "./commcare/Auth";
 import Config from "./commcare/Config";
+import Cookies from 'js-cookie'
 
 function App() {
   const config = Config();
   const devMode = config.COMMCARE_DEV_MODE || false;
-  const authToken = config.COMMCARE_AUTH_TOKEN;
+  const authToken = Cookies.get('commcare-access-token');
+  const refreshToken = Cookies.get('commcare-refresh-token');
+
   const [username, setUsername] = useState(config.COMMCARE_DEFAULT_USERNAME);
   const [apiKey, setApiKey] = useState(config.COMMCARE_DEFAULT_API_KEY);
   const navLinks = (

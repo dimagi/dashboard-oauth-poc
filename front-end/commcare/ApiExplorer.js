@@ -21,7 +21,6 @@ function ApiExplorer(props) {
         onError: (error) => {
           setIsLoading(false);
           console.error(error);
-          debugger;
           setApiData(error.message);
         }
       }
