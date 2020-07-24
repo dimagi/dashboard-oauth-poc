@@ -21,3 +21,11 @@ export function getOAuthClient(config) {
   });
   return auth;
 }
+
+
+export function OAuthButton(props) {
+  const startAuth = function () {
+    window.location = props.client.code.getUri();
+  }
+  return <button onClick={() => startAuth()}>Click to Authorize CommCare</button>
+}

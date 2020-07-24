@@ -10,7 +10,7 @@ import './App.sass';
 import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
 import {ApiKey} from "./commcare/ApiKey";
-import {getOAuthClient} from "./commcare/Auth";
+import {getOAuthClient, OAuthButton} from "./commcare/Auth";
 import Config from "./commcare/Config";
 import Cookies from 'js-cookie'
 
@@ -42,10 +42,11 @@ function App() {
             <ReportDashboard config={config} username={username} apiKey={apiKey} />
           </Route>
           <Route path="/">
-            <ApiKey config={config} devMode={devMode} oauthClient={oauthClient} username={username} apiKey={apiKey}
+            <ApiKey config={config} devMode={devMode} username={username} apiKey={apiKey}
               onUsernameChanged={(username) => setUsername(username)}
               onApiKeyChanged={(apiKey) => setApiKey(apiKey)}
             />
+            <OAuthButton client={oauthClient} />
           </Route>
         </Switch>
       </div>
