@@ -1,13 +1,6 @@
 import React from 'react';
 
 export function ApiKey(props) {
-  const oauthButton = (
-    <div>
-      <p>or</p>
-
-    </div>
-  );
-
   return (
     <div className="api-key-form">
       <h2>CommCare Credentials</h2>
