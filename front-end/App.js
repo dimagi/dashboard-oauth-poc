@@ -27,6 +27,15 @@ function App() {
     </header>
   );
   const oauthClient = getOAuthClient(config);
+  const helpText = (
+    authToken ?
+      <p>You've authenticated! Go <Link to="/explorer">explore APIs</Link> or <Link to="/explorer">reports</Link></p>
+      :
+      <div>
+        <p>To use the tool you'll first have to authorize access to your CommCare data</p>
+        <OAuthButton client={oauthClient} />
+      </div>
+    );
   return (
     <Router>
       <div className="App">
@@ -40,8 +49,7 @@ function App() {
           </Route>
           <Route path="/">
             <h2>Welcome to the CommCare API demo!</h2>
-            <p>To use the tool you'll first have to authorize access to your CommCare data</p>
-            <OAuthButton client={oauthClient} />
+            {helpText}
           </Route>
         </Switch>
       </div>
