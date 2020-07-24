@@ -19,8 +19,6 @@ function App() {
   const authToken = Cookies.get('commcare-access-token');
   const refreshToken = Cookies.get('commcare-refresh-token');
 
-  const [username, setUsername] = useState(config.COMMCARE_DEFAULT_USERNAME);
-  const [apiKey, setApiKey] = useState(config.COMMCARE_DEFAULT_API_KEY);
   const navLinks = (
     <header>
       <Link to="/">Authentication</Link>
@@ -35,12 +33,14 @@ function App() {
         {navLinks}
         <Switch>
           <Route path="/explorer">
-            <ApiExplorer config={config} devMode={devMode} username={username} apiKey={apiKey} authToken={authToken}/>
+            <ApiExplorer config={config} devMode={devMode} authToken={authToken}/>
           </Route>
           <Route path="/dashboard">
-            <ReportDashboard config={config} username={username} apiKey={apiKey} />
+            <ReportDashboard config={config} authToken={authToken} />
           </Route>
           <Route path="/">
+            <h2>Welcome to the CommCare API demo!</h2>
+            <p>To use the tool you'll first have to authorize access to your CommCare data</p>
             <OAuthButton client={oauthClient} />
           </Route>
         </Switch>

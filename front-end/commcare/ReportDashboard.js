@@ -1,12 +1,12 @@
 import React, {useState, useEffect}  from 'react';
-import {fetchCommCareApi} from "./Client";
+import {fetchCommCareApi, getOAuth2TokenAuthorization} from "./Client";
 import {listReports} from "./Reports";
 
 function ReportDashboard(props) {
   const [domain, setDomain] = useState(props.config.COMMCARE_DOMAIN);
   const [allReports, setAllReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
-
+  const authorization = getOAuth2TokenAuthorization(props.authToken);
   const ALL = 'all';
   const choiceFilterOptions = [ALL, "hiking", "running", "surfing"];
   const [selectedChoice, setSelectedChoice] = useState(choiceFilterOptions[0]);
@@ -14,7 +14,7 @@ function ReportDashboard(props) {
 
   useEffect(() => {
     listReports(
-      props.username, props.apiKey, domain, {
+      props.config.COMMCARE_URL, domain, authorization, {
         onSuccess: setAllReports,
       });
   }, [domain]);
@@ -26,7 +26,7 @@ function ReportDashboard(props) {
       <input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>
       <h2>All Reports in {domain}</h2>
       <ReportList reports={allReports} reportClicked={setSelectedReport}></ReportList>
-      { selectedReport ? <Report domain={domain} username={props.username} apiKey={props.apiKey} {...selectedReport} /> : <p>Select a Report to View Data</p>}
+      { selectedReport ? <Report commcareUrl={props.config.COMMCARE_URL} domain={domain} authorization={authorization} {...selectedReport} /> : <p>Select a Report to View Data</p>}
       {/*<h2>Filters</h2>*/}
       {/*<p>Type</p>*/}
       {/*<select onChange={(event) => setSelectedChoice(event.target.value)}>*/}
@@ -65,10 +65,11 @@ function ReportList(props) {
 
 function Report(props) {
   const [reportData, setReportData] = useState({});
-  const url = `https://www.commcarehq.org/a/${props.domain}/api/v0.5/configurablereportdata/${props.id}/`;
+  console.log(url);
+  const url = `${props.commcareUrl}/a/${props.domain}/api/v0.5/configurablereportdata/${props.id}/`;
   useEffect(() => {
     fetchCommCareApi(
-      url, props.username, props.apiKey, {
+      url, props.authorization, {
         onSuccess: setReportData,
       }
     );
