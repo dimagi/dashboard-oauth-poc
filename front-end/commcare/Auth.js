@@ -21,33 +21,3 @@ export function getOAuthClient(config) {
   });
   return auth;
 }
-
-
-export function AuthCallback(props) {
-  const location = useLocation();
-  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
-  const success = <p>You successfully authed!</p>;
-  const error = <p>There was an error! {params.error}</p>;
-  if (params.code) {
-    props.oauthClient.code.getToken(location).then((user) => {
-      console.log('success!');
-      console.log(user);
-      user.refresh().then(function (updatedUser) {
-        console.log(updatedUser.accessToken);
-        user.sign({
-          method: 'get',
-          url: process.env.REACT_APP_COMMCARE_DEFAULT_API,
-        });
-
-
-      });
-    })
-
-  }
-  return (
-    <div>
-    {params.code ? success : error}
-    </div>
-  );
-}
-

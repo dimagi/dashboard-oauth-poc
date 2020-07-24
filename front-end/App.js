@@ -10,7 +10,7 @@ import './App.sass';
 import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
 import {ApiKey} from "./commcare/ApiKey";
-import {getOAuthClient, AuthCallback} from "./commcare/Auth";
+import {getOAuthClient} from "./commcare/Auth";
 import Config from "./commcare/Config";
 import Cookies from 'js-cookie'
 
@@ -26,7 +26,7 @@ function App() {
     <header>
       <Link to="/">Authentication</Link>
       <Link to="/explorer">API Explorer</Link>
-      {devMode ? <Link to="/dashboard">Report Explorer</Link> : '' }
+      <Link to="/dashboard">Report Explorer</Link>
     </header>
   );
   const oauthClient = getOAuthClient(config);
@@ -34,17 +34,12 @@ function App() {
     <Router>
       <div className="App">
         {navLinks}
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/explorer">
             <ApiExplorer config={config} devMode={devMode} username={username} apiKey={apiKey} authToken={authToken}/>
           </Route>
           <Route path="/dashboard">
             <ReportDashboard config={config} username={username} apiKey={apiKey} />
-          </Route>
-          <Route path="/auth">
-            <AuthCallback config={config} oauthClient={oauthClient}/>
           </Route>
           <Route path="/">
             <ApiKey config={config} devMode={devMode} oauthClient={oauthClient} username={username} apiKey={apiKey}
