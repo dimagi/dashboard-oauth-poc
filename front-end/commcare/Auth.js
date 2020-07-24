@@ -17,7 +17,7 @@ export function getOAuthClient(config) {
     accessTokenUri: `${hqUrl}/oauth/token/`,
     authorizationUri: `${hqUrl}/oauth/authorize/`,
     redirectUri: redirectURI,
-    scopes: ['view_reports']
+    scopes: ['access_apis'],  // this must match what you have set in HQ
   });
   return auth;
 }
