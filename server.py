@@ -39,7 +39,7 @@ def oauth_callback():
         bundle_url = url_for('static', filename='index-bundle.js')
         resp = make_response(
             render_template(
-                'hello.html',
+                'home.html',
                 bundle_url=bundle_url,
                 commcare_config=config,
         ))
@@ -58,7 +58,7 @@ def home(path):
     commcare_config = _get_commcare_config()
     bundle_url = url_for('static', filename='index-bundle.js')
     return render_template(
-        'hello.html',
+        'home.html',
         bundle_url=bundle_url,
         commcare_config=commcare_config,
     )
