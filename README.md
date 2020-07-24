@@ -14,7 +14,7 @@ pip install flask
 Configuration:
 
 ```
-cp settings.example.py settings.py
+cp .env.example .env
 ```
 
 Then set values appropriately.
