@@ -15,7 +15,7 @@ module.exports = {
         options: { presets: ["@babel/preset-env", "@babel/preset-react"] }
       },
       {
-        test: /\.s?[ac]ss$/i,
+        test: /\.s?[ac]ss$/,
         use: [
           // Creates `style` nodes from JS strings
           'style-loader',
