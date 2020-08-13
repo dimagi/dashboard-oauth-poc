@@ -41,7 +41,7 @@ def oauth_callback():
             render_template(
                 'home.html',
                 bundle_url=bundle_url,
-                commcare_config=config,
+                commcare_config=_scrub_config(config),
         ))
         # set cookies so they are available to the front end
         resp.set_cookie(ACCESS_TOKEN_COOKIE_NAME, access_token)
@@ -55,14 +55,23 @@ def oauth_callback():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def home(path):
-    commcare_config = _get_commcare_config()
     bundle_url = url_for('static', filename='index-bundle.js')
     return render_template(
         'home.html',
         bundle_url=bundle_url,
-        commcare_config=commcare_config,
+        commcare_config=_get_front_end_commcare_config(),
     )
+
+
+def _get_front_end_commcare_config():
+    return _scrub_config(_get_commcare_config())
 
 
 def _get_commcare_config():
     return {k: v for k, v in app.config.items() if k.startswith('COMMCARE_')}
+
+
+def _scrub_config(config):
+    return {k: v for k, v in config.items() if k not in ('COMMCARE_CLIENT_SECRET')}
+
+
