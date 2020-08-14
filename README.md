@@ -45,3 +45,10 @@ or
 ```
 npm run dev-watch
 ```
+
+for production use:
+
+
+```
+npm run build
+```
