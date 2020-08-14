@@ -9,9 +9,9 @@ import {
 import './App.sass';
 import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
-import {getOAuthClient, OAuthButton} from "./commcare/Auth";
 import Config from "./commcare/Config";
 import Cookies from 'js-cookie'
+import CommCareAuthenticator from "./commcare/CommCareAuthenticator";
 
 function App() {
   const config = Config();
@@ -26,16 +26,6 @@ function App() {
       <Link to="/dashboard">Report Explorer</Link>
     </header>
   );
-  const oauthClient = getOAuthClient(config);
-  const helpText = (
-    authToken ?
-      <div>
-        <p>You've authenticated! Go <Link to="/explorer">explore APIs</Link> or <Link to="/explorer">reports</Link></p>
-        <p>If you're having issues you can also authorize again</p>
-      </div>
-      :
-      <p>To use the tool you'll first have to authorize access to your CommCare data</p>
-    );
   return (
     <Router>
       <div className="App">
@@ -49,9 +39,7 @@ function App() {
           </Route>
           <Route path="/">
             <h2>Welcome to the CommCare API demo!</h2>
-            {helpText}
-            <OAuthButton client={oauthClient} />
-
+            <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}/>
           </Route>
         </Switch>
       </div>
