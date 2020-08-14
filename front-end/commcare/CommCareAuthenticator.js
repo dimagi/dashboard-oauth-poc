@@ -31,9 +31,9 @@ function CommCareAuthenticator(props) {
   const helpText = (
     isAuthenticated ?
       <div>
-        <p>Welcome{getDisplayName(props.user)}!</p>
-        <p>From here you can <Link to="/explorer">explore APIs</Link> or <Link to="/explorer">look at reports</Link></p>
-        <p>If you're having issues you can also authorize again</p>
+        <p>Hello{getDisplayName(props.user)}!</p>
+        <p>From here you can <Link to="/explorer">explore APIs</Link> or <Link to="/explorer">reports</Link>.</p>
+        <p>If you're having issues you can also authorize again.</p>
       </div>
       :
       isLoading ?
