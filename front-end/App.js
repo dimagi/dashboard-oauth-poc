@@ -18,6 +18,7 @@ function App() {
   const devMode = config.COMMCARE_DEV_MODE || false;
   const authToken = Cookies.get('commcare-access-token');
   const refreshToken = Cookies.get('commcare-refresh-token');
+  const [user, setUser] = useState(null);
 
   const navLinks = (
     <header>
@@ -39,7 +40,8 @@ function App() {
           </Route>
           <Route path="/">
             <h2>Welcome to the CommCare API demo!</h2>
-            <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}/>
+            <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}
+                                   user={user} setUser={(newUser) => setUser(newUser)}/>
           </Route>
         </Switch>
       </div>

@@ -35,3 +35,11 @@ export function fetchCommCareApi(api, authorization, options) {
       }
     });
 }
+
+
+export function getCommCareUser(authorization, options) {
+  options = options || {};
+  const baseUrl = options.baseUrl || 'https://www.commcarehq.org';
+  const api = `${baseUrl}/api/v0.5/identity/`;
+  fetchCommCareApi(api, authorization, options);
+}
