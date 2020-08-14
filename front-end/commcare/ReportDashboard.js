@@ -104,7 +104,6 @@ function ReportList(props) {
 
 function Report(props) {
   const [reportData, setReportData] = useState({});
-  console.log(url);
   const url = `${props.commcareUrl}/a/${props.domain}/api/v0.5/configurablereportdata/${props.id}/`;
   useEffect(() => {
     fetchCommCareApi(
@@ -113,7 +112,6 @@ function Report(props) {
       }
     );
   }, [props.id]);
-  console.log(props);
   return <div className="Report">
     <h3>{props.title}</h3>
     <ReportTable {...reportData} />
@@ -127,7 +125,6 @@ function ReportTable(props) {
       <thead>
       <tr>
         {props.columns ? props.columns.map((item, index) => {
-          console.log(item);
           return <th key={index}>{item.header}</th>
         }) : <th>No data</th>}
       </tr>
