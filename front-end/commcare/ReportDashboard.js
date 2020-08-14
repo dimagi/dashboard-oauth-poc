@@ -34,23 +34,30 @@ function ReportDashboard(props) {
   }, [domain]);
 
 
-  const noDomain = <h2>Select a domain to see available reports</h2>
+  const noDomain = (
+    <>
+      <p><strong>Select a domain to see available reports</strong></p>
+      <p>Note: only project reports (e.g. those created in report builder) show up here.</p>
+    </>
+  )
 
   return (
     <div className="ReportDashboard">
-      <p>Domain</p>
-      <select value={domain} onChange={(event) => setDomain(event.target.value)}>
-        <option value=''>Select a Domain</option>
-        {domains.map((domainObj) => {
-          console.log(domainObj);
-          return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
-        })}
-      </select>
+      <h2>CommCare Report Explorer</h2>
+      <p>
+        Domain:
+        <select value={domain} onChange={(event) => setDomain(event.target.value)}>
+          <option value=''>Select a Domain</option>
+          {domains.map((domainObj) => {
+            return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
+          })}
+        </select>
+      </p>
       {/*<input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>*/}
       {
         domain ?
           <>
-            <h2>All Reports in {domain}</h2>
+            <h3>All Reports in {domain}</h3>
             <ReportList reports={allReports} reportClicked={setSelectedReport}></ReportList>
           </> :
           noDomain
@@ -108,7 +115,7 @@ function Report(props) {
   }, [props.id]);
   console.log(props);
   return <div className="Report">
-    <h1>{props.title}</h1>
+    <h3>{props.title}</h3>
     <ReportTable {...reportData} />
   </div>
 }
