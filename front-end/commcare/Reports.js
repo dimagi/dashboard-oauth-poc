@@ -6,9 +6,9 @@ export function listReports(baseUrl, domain, authorization, options) {
   fetchCommCareApi(
     api, authorization, {
       onSuccess: (response) => {
-        console.log(response);
         options.onSuccess(response.objects);
-      }
+      },
+      onError: options.onError,
     }
   )
 }

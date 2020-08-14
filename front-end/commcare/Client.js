@@ -43,3 +43,15 @@ export function getCommCareUser(authorization, options) {
   const api = `${baseUrl}/api/v0.5/identity/`;
   fetchCommCareApi(api, authorization, options);
 }
+
+
+export function getDomains(authorization, options) {
+  options = options || {};
+  const baseUrl = options.baseUrl || 'https://www.commcarehq.org';
+  const api = `${baseUrl}/api/v0.5/user_domains/`;
+  fetchCommCareApi(api, authorization, {
+    onSuccess: (response) => {
+      options.onSuccess(response.objects);
+    }
+  });
+}

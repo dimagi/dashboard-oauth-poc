@@ -1,9 +1,10 @@
 import React, {useState, useEffect}  from 'react';
-import {fetchCommCareApi, getOAuth2TokenAuthorization} from "./Client";
+import {fetchCommCareApi, getDomains, getOAuth2TokenAuthorization} from "./Client";
 import {listReports} from "./Reports";
 
 function ReportDashboard(props) {
-  const [domain, setDomain] = useState(props.config.COMMCARE_DOMAIN);
+  const [domains, setDomains] = useState([]);
+  const [domain, setDomain] = useState('');
   const [allReports, setAllReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
   const authorization = getOAuth2TokenAuthorization(props.authToken);
@@ -13,20 +14,51 @@ function ReportDashboard(props) {
   const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
+    getDomains(
+      authorization, {
+        baseUrl: props.config.COMMCARE_URL,
+        onSuccess: setDomains,
+      });
+  }, [authorization]);
+
+  useEffect(() => {
+    setSelectedReport(null);
+    setAllReports([]);
     listReports(
       props.config.COMMCARE_URL, domain, authorization, {
         onSuccess: setAllReports,
+        onError: () => {
+          console.error('error!');
+        }
       });
   }, [domain]);
 
 
+  const noDomain = <h2>Select a domain to see available reports</h2>
+
   return (
     <div className="ReportDashboard">
       <p>Domain</p>
-      <input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>
-      <h2>All Reports in {domain}</h2>
-      <ReportList reports={allReports} reportClicked={setSelectedReport}></ReportList>
-      { selectedReport ? <Report commcareUrl={props.config.COMMCARE_URL} domain={domain} authorization={authorization} {...selectedReport} /> : <p>Select a Report to View Data</p>}
+      <select value={domain} onChange={(event) => setDomain(event.target.value)}>
+        <option value=''>Select a Domain</option>
+        {domains.map((domainObj) => {
+          console.log(domainObj);
+          return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
+        })}
+      </select>
+      {/*<input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>*/}
+      {
+        domain ?
+          <>
+            <h2>All Reports in {domain}</h2>
+            <ReportList reports={allReports} reportClicked={setSelectedReport}></ReportList>
+          </> :
+          noDomain
+      }
+
+      { selectedReport ?
+        <Report commcareUrl={props.config.COMMCARE_URL} domain={domain} authorization={authorization} {...selectedReport} /> :
+        allReports.length ? <p>Select a Report to View Data</p> : ''}
       {/*<h2>Filters</h2>*/}
       {/*<p>Type</p>*/}
       {/*<select onChange={(event) => setSelectedChoice(event.target.value)}>*/}
