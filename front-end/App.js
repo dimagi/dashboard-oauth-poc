@@ -24,7 +24,7 @@ function App() {
     <header>
       <Link to="/">Authentication</Link>
       <Link to="/explorer">API Explorer</Link>
-      <Link to="/dashboard">Report Explorer</Link>
+      <Link to="/reports">Report Explorer</Link>
     </header>
   );
   return (
@@ -35,7 +35,7 @@ function App() {
           <Route path="/explorer">
             <ApiExplorer config={config} devMode={devMode} authToken={authToken}/>
           </Route>
-          <Route path="/dashboard">
+          <Route path="/reports">
             <ReportDashboard config={config} authToken={authToken} />
           </Route>
           <Route path="/">
