@@ -52,8 +52,9 @@ function ReportDashboard(props) {
             return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
           })}
         </select>
+        or
+        <input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>
       </p>
-      {/*<input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>*/}
       {
         domain ?
           <>
