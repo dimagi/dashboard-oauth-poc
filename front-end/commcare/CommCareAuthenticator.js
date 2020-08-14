@@ -10,14 +10,12 @@ function CommCareAuthenticator(props) {
   const oauthClient = getOAuthClient(props.config);
   const [isLoading, setIsLoading] = useState(Boolean(props.authToken));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  console.log('user', props.user);
   useEffect(() => {
     if (props.authToken) {
       const authorization = getOAuth2TokenAuthorization(props.authToken);
       getCommCareUser(authorization, {
         baseUrl: props.config.COMMCARE_URL,
         onSuccess: (user) => {
-          console.log(user);
           setIsLoading(false);
           setIsAuthenticated(true);
           props.setUser(user);
