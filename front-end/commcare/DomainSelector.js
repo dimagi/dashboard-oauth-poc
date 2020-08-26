@@ -25,8 +25,8 @@ function DomainSelector(props) {
       Domain:
       <select value={domain} onChange={(event) => domainSelected(event.target.value)}>
         <option value=''>Select a Domain</option>
-        {domains.map((domainObj) => {
-          return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
+        {domains.map((domainObj, key) => {
+          return <option key={key} value={domainObj.domain_name}>{domainObj.project_name}</option>;
         })}
       </select>
       or
