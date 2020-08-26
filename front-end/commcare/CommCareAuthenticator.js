@@ -19,6 +19,10 @@ function CommCareAuthenticator(props) {
           setIsLoading(false);
           setIsAuthenticated(true);
           props.setUser(user);
+        },
+        onError: (err) => {
+          setIsLoading(false);
+          setIsAuthenticated(false);
         }
       });
     }
