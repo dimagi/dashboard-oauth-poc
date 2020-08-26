@@ -4,7 +4,7 @@ import {getDomains, getOAuth2TokenAuthorization} from "./Client";
 
 function DomainSelector(props) {
   const [domains, setDomains] = useState([]);
-  const [domain, setDomain] = useState(props.domain);
+  const [domain, setDomain] = useState(props.domain || '');
 
   const authorization = getOAuth2TokenAuthorization(props.authToken);
   useEffect(() => {
