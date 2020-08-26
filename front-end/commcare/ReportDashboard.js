@@ -1,9 +1,9 @@
 import React, {useState, useEffect}  from 'react';
-import {fetchCommCareApi, getDomains, getOAuth2TokenAuthorization} from "./Client";
+import {fetchCommCareApi, getOAuth2TokenAuthorization} from "./Client";
 import {listReports} from "./Reports";
+import DomainSelector from "./DomainSelector";
 
 function ReportDashboard(props) {
-  const [domains, setDomains] = useState([]);
   const [domain, setDomain] = useState('');
   const [allReports, setAllReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
@@ -12,14 +12,6 @@ function ReportDashboard(props) {
   const choiceFilterOptions = [ALL, "hiking", "running", "surfing"];
   const [selectedChoice, setSelectedChoice] = useState(choiceFilterOptions[0]);
   const [selectedDate, setSelectedDate] = useState(null);
-
-  useEffect(() => {
-    getDomains(
-      authorization, {
-        baseUrl: props.config.COMMCARE_URL,
-        onSuccess: setDomains,
-      });
-  }, [authorization]);
 
   useEffect(() => {
     setSelectedReport(null);
@@ -44,17 +36,7 @@ function ReportDashboard(props) {
   return (
     <div className="ReportDashboard">
       <h2>CommCare Report Explorer</h2>
-      <p>
-        Domain:
-        <select value={domain} onChange={(event) => setDomain(event.target.value)}>
-          <option value=''>Select a Domain</option>
-          {domains.map((domainObj) => {
-            return <option value={domainObj.domain_name}>{domainObj.project_name}</option>;
-          })}
-        </select>
-        or
-        <input type="text" value={domain} onChange={(event) => setDomain(event.target.value)}/>
-      </p>
+      <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => setDomain(domain)} />
       {
         domain ?
           <>
