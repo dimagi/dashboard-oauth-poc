@@ -1,22 +1,37 @@
-import React, {useState}  from 'react';
+import React, {useState, useEffect}  from 'react';
 import {fetchCommCareApi, getAPIKeyAuthorization, getOAuth2TokenAuthorization} from "./Client";
 import DomainSelector from "./DomainSelector";
+import APISelector, {constructApiUrl} from "./ApiSelector";
 
 
 function ApiExplorer(props) {
   const [apiUrl, setApiUrl] = useState(props.config.COMMCARE_DEFAULT_API);
-  const [apiData, setApiData] = useState('')
+  const [apiData, setApiData] = useState('');
   const [domain, setDomain] = useState('');
-  // const [domain, setDomain] = useState('');
+  const [apiDetails, setApiDetails] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const authorization = getOAuth2TokenAuthorization(props.authToken);
+  const apiSelected = function(details) {
+    setApiDetails(details);
+  };
+  const hasValidApi = domain && apiDetails;
+  const computedApiUrl = hasValidApi ? constructApiUrl(props.config.COMMCARE_URL, domain, apiDetails.endpoint) : apiUrl;
+
+  const manuallySetApiUrl = function(url) {
+    setApiDetails(null);
+    setApiUrl(url);
+  };
   const hitApi = function () {
     setIsLoading(true);
     fetchCommCareApi(
-      apiUrl, authorization, {
+      computedApiUrl, authorization, {
         onSuccess: (response) => {
           setIsLoading(false);
-          setApiData(JSON.stringify(response, null, 2));
+          try {
+            setApiData(JSON.stringify(response, null, 2));
+          } catch(err) {
+            console.log(response);
+          }
         },
         onError: (error) => {
           setIsLoading(false);
@@ -31,9 +46,9 @@ function ApiExplorer(props) {
       <h1>CommCare API Explorer</h1>
       <p>Choose an API below, or enter the URL directly.</p>
       <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => setDomain(domain)} />
-      
+      <APISelector domain={domain} apiSelected={apiSelected}/>
       <h2>API Url</h2>
-      <input type="text" style={{width: "60em"}} value={apiUrl} onChange={(event) => setApiUrl(event.target.value)}/>
+      <input type="text" style={{width: "60em"}} value={computedApiUrl} onChange={(event) => manuallySetApiUrl(event.target.value)}/>
       <br />
       <br />
       <input type="button" onClick={() => hitApi()} value="Request API"/>
