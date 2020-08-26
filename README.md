@@ -3,6 +3,8 @@
 This project consists of a stateless flask back end and a React front end that
 interact with CommCare via oauth2.
 
+A public demo [is available here](https://commcare-api-demo.herokuapp.com/).
+
 ## Architecture
 
 Authentication is managed through a standard [OAuth2 Authorization code grant](https://oauth.net/2/grant-types/authorization-code/) 
