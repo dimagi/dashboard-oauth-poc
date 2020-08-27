@@ -10,17 +10,28 @@ function ApiExplorer(props) {
   const [domain, setDomain] = useState('');
   const [apiDetails, setApiDetails] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isManual, setIsManual] = useState(true);
   const authorization = getOAuth2TokenAuthorization(props.authToken);
   const apiSelected = function(details) {
+    setIsManual(false);
     setApiDetails(details);
   };
   const hasValidApi = domain && apiDetails;
-  const computedApiUrl = hasValidApi ? constructApiUrl(props.config.COMMCARE_URL, domain, apiDetails.endpoint) : apiUrl;
+  const computedApiUrl = ((hasValidApi && ! isManual) ?
+    constructApiUrl(props.config.COMMCARE_URL, domain, apiDetails.endpoint)
+    : apiUrl)
+  ;
+
+  const domainChanged = function(domain) {
+    setIsManual(false);
+    setDomain(domain);
+  };
 
   const manuallySetApiUrl = function(url) {
-    setApiDetails(null);
+    setIsManual(true);
     setApiUrl(url);
   };
+
   const hitApi = function () {
     setIsLoading(true);
     fetchCommCareApi(
@@ -45,7 +56,7 @@ function ApiExplorer(props) {
     <div className="ApiExplorer">
       <h1>CommCare API Explorer</h1>
       <p>Choose an API below, or enter the URL directly.</p>
-      <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => setDomain(domain)} />
+      <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => domainChanged(domain)} />
       <APISelector domain={domain} apiSelected={apiSelected}/>
       <h2>API Url</h2>
       <input type="text" style={{width: "60em"}} value={computedApiUrl} onChange={(event) => manuallySetApiUrl(event.target.value)}/>
