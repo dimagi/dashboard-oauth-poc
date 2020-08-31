@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, url_for, request, make_response
+from flask import Flask, url_for, request, make_response, redirect
 from flask import render_template
 
 from commcare.auth import get_commcare_auth_config
@@ -36,13 +36,8 @@ def oauth_callback():
         hq_json = hq_response.json()
         access_token = hq_json['access_token']
         refresh_token = hq_json['refresh_token']
-        bundle_url = url_for('static', filename='index-bundle.js')
-        resp = make_response(
-            render_template(
-                'home.html',
-                bundle_url=bundle_url,
-                commcare_config=_scrub_config(config),
-        ))
+        resp = make_response(redirect(url_for('home')))
+
         # set cookies so they are available to the front end
         resp.set_cookie(ACCESS_TOKEN_COOKIE_NAME, access_token)
         resp.set_cookie(REFRESH_TOKEN_COOKIE_NAME, refresh_token)
