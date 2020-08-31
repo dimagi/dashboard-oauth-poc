@@ -3,7 +3,7 @@
 This project consists of a stateless flask back end and a React front end that
 interact with CommCare via oauth2.
 
-A public demo [is available here](https://commcare-api-demo.herokuapp.com/).
+A public demo [is available here](https://commcare-api-explorer.dimagi.com/).
 
 ## Architecture
 
@@ -66,6 +66,14 @@ for production use:
 ```
 npm run build
 ```
+
+## Deployment
+
+The demo instance of this app is running on Heroku.
+You can deploy by adding the remote repository and running `git push heroku master`.
+
+It is currently tied to Cory's personal account to be on the free tier.
+If you need access contact him.
 
 ## Future work
 
