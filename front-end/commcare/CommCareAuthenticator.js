@@ -36,8 +36,6 @@ function CommCareAuthenticator(props) {
     isAuthenticated ?
       <div>
         <p>Hello{getDisplayName(props.user)}!</p>
-        <p>From here you can <Link to="/explorer">explore APIs</Link> or <Link to="/reports">reports</Link>.</p>
-        <p>If you're having issues you can also authorize again.</p>
       </div>
       :
       isLoading ?
@@ -47,7 +45,7 @@ function CommCareAuthenticator(props) {
   return (
     <div>
       {helpText}
-      <OAuthButton client={oauthClient} />
+      {isAuthenticated ? '' : <OAuthButton client={oauthClient} />}
     </div>
   );
 }

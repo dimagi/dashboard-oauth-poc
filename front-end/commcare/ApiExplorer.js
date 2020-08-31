@@ -54,7 +54,6 @@ function ApiExplorer(props) {
   };
   return (
     <div className="ApiExplorer">
-      <h1>CommCare API Explorer</h1>
       <p>Choose an API below, or enter the URL directly.</p>
       <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => domainChanged(domain)} />
       <APISelector domain={domain} apiSelected={apiSelected}/>

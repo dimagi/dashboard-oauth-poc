@@ -19,29 +19,33 @@ function App() {
   const authToken = Cookies.get('commcare-access-token');
   const refreshToken = Cookies.get('commcare-refresh-token');
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navLinks = (
     <header>
-      <Link to="/">Authentication</Link>
-      <Link to="/explorer">API Explorer</Link>
+      <Link to="/">API Explorer</Link>
       <Link to="/reports">Report Explorer</Link>
     </header>
   );
+
+  const userConnected = function(user) {
+    setUser(user);
+    setIsAuthenticated(true);
+  };
+
   return (
     <Router>
       <div className="App">
         {navLinks}
         <Switch>
-          <Route path="/explorer">
-            <ApiExplorer config={config} devMode={devMode} authToken={authToken}/>
-          </Route>
           <Route path="/reports">
             <ReportDashboard config={config} authToken={authToken} />
           </Route>
           <Route path="/">
-            <h2>Welcome to the CommCare API demo!</h2>
+            <h1>CommCare API Explorer</h1>
             <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}
-                                   user={user} setUser={(newUser) => setUser(newUser)}/>
+                                   user={user} setUser={userConnected}/>
+            {isAuthenticated ? <ApiExplorer config={config} devMode={devMode} authToken={authToken} /> : ''}
           </Route>
         </Switch>
       </div>
