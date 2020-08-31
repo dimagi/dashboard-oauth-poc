@@ -50,7 +50,16 @@ function getDomainApis() {
     'application': {
       'name': 'List Applications',
       'endpoint': 'application',
-    }
+    },
+    'location-type': {
+      'name': 'List Location Types',
+      'endpoint': 'location_type',
+    },
+    'location': {
+      'name': 'List Locations',
+      'endpoint': 'location',
+    },
+
   }
 }
 export default ApiSelector;
