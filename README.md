@@ -72,8 +72,7 @@ npm run build
 The demo instance of this app is running on Heroku.
 You can deploy by adding the remote repository and running `git push heroku master`.
 
-It is currently tied to Cory's personal account to be on the free tier.
-If you need access contact him.
+It is currently tied to Dimagi's account, and credentials can be found in Keepass.
 
 ## Future work
 
