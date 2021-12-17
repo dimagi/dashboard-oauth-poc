@@ -23,7 +23,7 @@ JavaScript client. The backend is completely stateless.
 Installation
 
 ```
-pip install flask
+pip install -r requirements.txt
 ```
 
 Configuration:
@@ -37,6 +37,7 @@ Then set values appropriately.
 Running
 ```
 export FLASK_APP=server.py
+export FLASK_ENV=development
 flask run
 ```
 
