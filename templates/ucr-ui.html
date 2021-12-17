@@ -10,8 +10,9 @@
     <ol>
       <li>Find your data source on CommCare HQ at "/a/[domain]/configurable_reports/"</li>
       <li>Click "Advanced --> Data Source JSON"</li>
-      <li>Save the JSON file in the "data-sources" folder as "sample-data-source.json"</li>
-      <li>Refresh the page</li>
+      <li>Copy the JSON</li>
+      <li>Click "Edit JSON" next to "Root" below, and paste it in</li>
+      <li>Click "Save"</li>
     </ol>
     <p>Your data source should be imported, and you can edit the filters and indicators using the UI!</p>
     <div id='editor_holder'></div>
@@ -28,7 +29,7 @@
       const editor = new JSONEditor(document.getElementById('editor_holder'), {
         schema: schema,
         theme: 'bootstrap4',
-        disable_edit_json: true,  // hide "edit json" buttons
+        // disable_edit_json: true,  // hide "edit json" buttons
         disable_properties: true,  // hide "object properties" buttons
       });
       editor.setValue(editableDataSource);

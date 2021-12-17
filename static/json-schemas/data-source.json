@@ -8,7 +8,8 @@
     "configured_filter": {
       "$ref": "#/definitions/filter",
       "options": {
-        "collapsed": true
+        "collapsed": true,
+        "disable_edit_json": true
       }
     },
     "configured_indicators": {
@@ -19,7 +20,8 @@
       },
       "format": "tabs",
       "options": {
-        "collapsed": true
+        "collapsed": true,
+        "disable_edit_json": true
       }
     }
   },
@@ -38,7 +40,8 @@
     "expression": {
       "type": "object",
       "options": {
-        "keep_oneof_values": false
+        "keep_oneof_values": false,
+        "disable_edit_json": true
       },
       "properties": {
         "type": {
@@ -206,12 +209,16 @@
         "datatype",
         "column_id",
         "expression"
-      ]
+      ],
+      "options": {
+        "disable_edit_json": true
+      }
     },
     "filter": {
       "type": "object",
       "options": {
-        "keep_oneof_values": false
+        "keep_oneof_values": false,
+        "disable_edit_json": true
       },
       "properties": {
         "type": {
