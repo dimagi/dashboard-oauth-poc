@@ -47,6 +47,15 @@ def oauth_callback():
         return "Oops, something went wrong. Please try again."
 
 
+@app.route('/ucr-ui/')
+def ucr_ui():
+    return render_template(
+        'ucr-ui.html',
+        data_source_schema=url_for('static', filename='json-schemas/data-source.json'),
+        data_source_url=url_for('static', filename='example-data-source.json'),
+    )
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def home(path):
