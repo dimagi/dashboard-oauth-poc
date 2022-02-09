@@ -41,7 +41,6 @@ function DataSourceSelector(props) {
 
 function DataSourceEditingUI(props) {
   const [dataSource, setDataSource] = useState(null);
-
   useEffect(() => {
     getDataSource(
       props.config.COMMCARE_URL, props.domain, props.dataSourceId, props.authorization, {
@@ -50,11 +49,17 @@ function DataSourceEditingUI(props) {
           console.error('error!');
         }
       });
-  }, [props.dataSource]);
+  }, [props.dataSourceId]);
 
-  if (dataSource) {
+  const cleanedDataSource = {
+    'display_name': dataSource?.display_name,
+    'configured_filter': dataSource?.configured_filter,
+    'configured_indicators': dataSource?.configured_indicators,
+  }
+
+  if (props.dataSourceId && dataSource?.id === props.dataSourceId) {
     return (
-      <SchemaEditor dataSource={dataSource} {...props} />
+      <SchemaEditor dataSource={cleanedDataSource} {...props} />
     );
   } else {
     return <p>Loading...</p>
