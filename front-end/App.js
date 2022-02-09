@@ -55,7 +55,7 @@ function App() {
             <DataSourceEditor config={config} authToken={authToken} />
           </Route>
           <Route path="/">
-            <h1>CommCare API Explorer</h1>
+            <h2>CommCare API Explorer</h2>
             <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}
                                    user={user} setUser={userConnected}/>
             {isAuthenticated ? <ApiExplorer config={config} devMode={devMode} authToken={authToken} /> : ''}
