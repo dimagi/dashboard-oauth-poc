@@ -25,3 +25,16 @@ export function listDataSources(baseUrl, domain, authorization, options) {
     }
   )
 }
+
+
+export function getDataSource(baseUrl, domain, dataSourceId, authorization, options) {
+  const api = `${baseUrl}/a/${domain}/api/v0.5/ucr_data_source/${dataSourceId}/?format=json`;
+  fetchCommCareApi(
+    api, authorization, {
+      onSuccess: (response) => {
+        options.onSuccess(response);
+      },
+      onError: options.onError,
+    }
+  )
+}

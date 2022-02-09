@@ -1,7 +1,8 @@
 import React, {useState, useEffect}  from 'react';
 import DomainSelector from "./DomainSelector";
 import {getOAuth2TokenAuthorization} from "./Client";
-import {listDataSources} from "./Reports";
+import {getDataSource, listDataSources} from "./Reports";
+import SchemaEditor from "../SchemaEditor";
 
 
 function DataSourceSelector(props) {
@@ -38,8 +39,27 @@ function DataSourceSelector(props) {
 }
 
 
-function DataSourceEditingUI() {
-  return <p>Edit me</p>;
+function DataSourceEditingUI(props) {
+  const [dataSource, setDataSource] = useState(null);
+
+  useEffect(() => {
+    getDataSource(
+      props.config.COMMCARE_URL, props.domain, props.dataSourceId, props.authorization, {
+        onSuccess: setDataSource,
+        onError: () => {
+          console.error('error!');
+        }
+      });
+  }, [props.dataSource]);
+
+  if (dataSource) {
+    return (
+      <SchemaEditor dataSource={dataSource} {...props} />
+    );
+  } else {
+    return <p>Loading...</p>
+  }
+
 }
 
 function DataSourceEditor(props) {
@@ -76,7 +96,12 @@ function DataSourceEditor(props) {
               dataSourceSelected={setSelectedDataSource}>
             </DataSourceSelector>
             {selectedDataSource && schema ?
-            <DataSourceEditingUI dataSource={selectedDataSource}>
+            <DataSourceEditingUI
+              config={props.config}
+              domain={domain}
+              authorization={authorization}
+              schema={schema}
+              dataSourceId={selectedDataSource}>
             </DataSourceEditingUI> : ''}
           </> :
           <p>Select a domain to see available data sources</p>
