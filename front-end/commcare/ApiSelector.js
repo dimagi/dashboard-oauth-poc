@@ -11,16 +11,15 @@ function ApiSelector(props) {
     props.apiSelected(domainApis[apiId]);
   };
   return (
-    <p>
-      API:
-      <select value={selectedApi} onChange={(event) => apiSelected(event.target.value)}>
+    <div className="form-row my-2">
+      <select className="form-control" value={selectedApi} onChange={(event) => apiSelected(event.target.value)}>
         <option value=''>Select an API</option>
         {Object.entries(domainApis).map((entry, id) => {
           const [apiId, apiDetails] = entry;
           return <option key={id} value={apiId}>{apiDetails.name}</option>;
         })}
       </select>
-    </p>
+    </div>
   );
 }
 
