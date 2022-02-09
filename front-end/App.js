@@ -12,6 +12,7 @@ import ReportDashboard from "./commcare/ReportDashboard";
 import Config from "./commcare/Config";
 import Cookies from 'js-cookie'
 import CommCareAuthenticator from "./commcare/CommCareAuthenticator";
+import DataSourceEditor from "./commcare/DataSourceEditor";
 
 function App() {
   const config = Config();
@@ -24,7 +25,8 @@ function App() {
   const navLinks = (
     <header>
       <Link to="/">API Explorer</Link>
-      <Link to="/reports">Report Explorer</Link>
+      <Link to="/reports/">Report Explorer</Link>
+      <Link to="/data-source-editor/">Data Source Editor</Link>
     </header>
   );
 
@@ -38,8 +40,11 @@ function App() {
       <div className="App">
         {navLinks}
         <Switch>
-          <Route path="/reports">
+          <Route path="/reports/">
             <ReportDashboard config={config} authToken={authToken} />
+          </Route>
+          <Route path="/data-source-editor/">
+            <DataSourceEditor config={config} authToken={authToken} />
           </Route>
           <Route path="/">
             <h1>CommCare API Explorer</h1>
