@@ -14,3 +14,14 @@ export function listReports(baseUrl, domain, authorization, options) {
 }
 
 
+export function listDataSources(baseUrl, domain, authorization, options) {
+  const api = `${baseUrl}/a/${domain}/api/v0.5/ucr_data_source/?format=json`;
+  fetchCommCareApi(
+    api, authorization, {
+      onSuccess: (response) => {
+        options.onSuccess(response.objects);
+      },
+      onError: options.onError,
+    }
+  )
+}
