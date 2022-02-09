@@ -24,9 +24,17 @@ function App() {
 
   const navLinks = (
     <header>
-      <Link to="/">API Explorer</Link>
-      <Link to="/reports/">Report Explorer</Link>
-      <Link to="/data-source-editor/">Data Source Editor</Link>
+      <ul className="nav">
+        <li className="nav-item">
+          <Link className="nav-link" to="/" >API Explorer</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/reports/">Report Explorer</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/data-source-editor/">Data Source Editor</Link>
+        </li>
+      </ul>
     </header>
   );
 
@@ -37,7 +45,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="container-xl">
         {navLinks}
         <Switch>
           <Route path="/reports/">
