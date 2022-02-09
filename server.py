@@ -64,6 +64,7 @@ def home(path):
         'home.html',
         bundle_url=bundle_url,
         commcare_config=_get_front_end_commcare_config(),
+        data_source_schema_url=url_for('static', filename='json-schemas/data-source.json'),
     )
 
 
