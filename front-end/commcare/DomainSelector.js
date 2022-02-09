@@ -21,7 +21,7 @@ function DomainSelector(props) {
   };
 
   return (
-    <div className="form-row">
+    <div className="form-row mb-2">
       <select className="form-control col-md-4" value={domain} onChange={(event) => domainSelected(event.target.value)}>
         <option value=''>Select a Domain</option>
         {domains.map((domainObj, key) => {
