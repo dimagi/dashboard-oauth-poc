@@ -8,6 +8,7 @@ function DataSourceSelector(props) {
   const [dataSources, setDataSources] = useState([]);
   const [dataSource, setDataSource] = useState(props.domain || '');
 
+  // list data sources when domain is selected
   useEffect(() => {
     listDataSources(
       props.config.COMMCARE_URL, props.domain, props.authorization, {
@@ -37,11 +38,26 @@ function DataSourceSelector(props) {
 }
 
 
+function DataSourceEditingUI() {
+  return <p>Edit me</p>;
+}
+
 function DataSourceEditor(props) {
+  const [schema, setSchema] = useState({});
   const [domain, setDomain] = useState('');
   const [allDataSources, setAllDataSources] = useState([]);
   const [selectedDataSource, setSelectedDataSource] = useState(null);
   const authorization = getOAuth2TokenAuthorization(props.authToken);
+
+  // populate the schema when this component loads
+  useEffect(() => {
+    fetch(DATA_SOURCE_SCHEMA_URL)
+      .then((resp) => resp.json())
+      .then((schemaObj) => {
+        setSchema(schemaObj);
+      });
+  }, []);
+
 
   return (
     <>
@@ -59,6 +75,9 @@ function DataSourceEditor(props) {
               dataSources={allDataSources}
               dataSourceSelected={setSelectedDataSource}>
             </DataSourceSelector>
+            {selectedDataSource && schema ?
+            <DataSourceEditingUI dataSource={selectedDataSource}>
+            </DataSourceEditingUI> : ''}
           </> :
           <p>Select a domain to see available data sources</p>
       }

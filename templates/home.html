@@ -8,6 +8,7 @@
     <script>
       // this is used elsewhere by the javascript bundle. don't delete!
       const CONFIG = {{ commcare_config|tojson }};
+      const DATA_SOURCE_SCHEMA_URL = '{{ data_source_schema_url }}';
     </script>
     <script src="{{ bundle_url }}"></script>
   </body>
