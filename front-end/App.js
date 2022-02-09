@@ -6,7 +6,6 @@ import {
   Link,
 } from "react-router-dom";
 
-import './App.sass';
 import ApiExplorer from "./commcare/ApiExplorer";
 import ReportDashboard from "./commcare/ReportDashboard";
 import Config from "./commcare/Config";
@@ -24,9 +23,17 @@ function App() {
 
   const navLinks = (
     <header>
-      <Link to="/">API Explorer</Link>
-      <Link to="/reports/">Report Explorer</Link>
-      <Link to="/data-source-editor/">Data Source Editor</Link>
+      <ul className="nav">
+        <li className="nav-item">
+          <Link className="nav-link" to="/" >API Explorer</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/reports/">Report Explorer</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/data-source-editor/">Data Source Editor</Link>
+        </li>
+      </ul>
     </header>
   );
 
@@ -37,7 +44,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="container-xl">
         {navLinks}
         <Switch>
           <Route path="/reports/">
@@ -47,7 +54,7 @@ function App() {
             <DataSourceEditor config={config} authToken={authToken} />
           </Route>
           <Route path="/">
-            <h1>CommCare API Explorer</h1>
+            <h2>CommCare API Explorer</h2>
             <CommCareAuthenticator config={config} authToken={authToken} refreshToken={refreshToken}
                                    user={user} setUser={userConnected}/>
             {isAuthenticated ? <ApiExplorer config={config} devMode={devMode} authToken={authToken} /> : ''}
