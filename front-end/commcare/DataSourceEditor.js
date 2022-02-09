@@ -28,7 +28,7 @@ function DataSourceSelector(props) {
   return (
     <p>
       Data Source:
-      <select value={dataSource} onChange={(event) => dataSourceSelected(event.target.value)}>
+      <select className="form-control" value={dataSource} onChange={(event) => dataSourceSelected(event.target.value)}>
         <option value=''>Select a Data Source</option>
         {dataSources.map((dataSourceObj, key) => {
           return <option key={key} value={dataSourceObj.id}>{dataSourceObj.display_name}</option>;
