@@ -63,7 +63,7 @@ function ReportDashboard(props) {
 function ReportList(props) {
   if (props.reports.length) {
     return (
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Report</th>
@@ -104,7 +104,7 @@ function Report(props) {
 
 function ReportTable(props) {
   return (
-    <table>
+    <table className="table table-striped">
       <thead>
       <tr>
         {props.columns ? props.columns.map((item, index) => {
