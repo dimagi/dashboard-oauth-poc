@@ -26,15 +26,28 @@ Installation
 pip install -r requirements.txt
 ```
 
-Configuration:
+### Configuration
+
+To use thie application with CommCare you'll first need to create an OAuth application in your local CommCare HQ.
+You can do that from the [Django Admin Site](http://localhost:8000/admin/oauth2_provider/application/).
+
+- In Redirect urls, add "http://localhost:5000/oauth-callback/"
+- Choose "Confidential" for Client Type
+- Choose "Authorization Code" for Authorization grant type
+
+Next, you'll need to create your `.env` file:
 
 ```
 cp .env.example .env
 ```
 
-Then set values appropriately.
+Then set values appropriately, using the `COMMCARE_CLIENT_ID` and `COMMCARE_CLIENT_SECRET` from the application
+you created above.
 
-Running
+### Running
+
+Run the application with the following commands:
+
 ```
 export FLASK_APP=server.py
 export FLASK_ENV=development
