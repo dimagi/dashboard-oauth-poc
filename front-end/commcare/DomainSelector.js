@@ -21,17 +21,16 @@ function DomainSelector(props) {
   };
 
   return (
-    <p>
-      Domain:
-      <select value={domain} onChange={(event) => domainSelected(event.target.value)}>
+    <div className="form-row">
+      <select className="form-control col-md-4" value={domain} onChange={(event) => domainSelected(event.target.value)}>
         <option value=''>Select a Domain</option>
         {domains.map((domainObj, key) => {
           return <option key={key} value={domainObj.domain_name}>{domainObj.project_name}</option>;
         })}
       </select>
-      or
-      <input type="text" value={domain} onChange={(event) => domainSelected(event.target.value)}/>
-    </p>
+      <span className="mx-2"> or </span>
+      <input placeholder="domain" className="form-control col-md-4" type="text" value={domain} onChange={(event) => domainSelected(event.target.value)}/>
+    </div>
   )
 }
 
