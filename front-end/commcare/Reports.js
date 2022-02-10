@@ -44,7 +44,8 @@ export function saveDataSource(baseUrl, domain, dataSourceId, dataSourceData, au
   const api = `${baseUrl}/a/${domain}/api/v0.5/ucr_data_source/${dataSourceId}/?format=json`;
   fetchCommCareApi(
     api, authorization, {
-      method: 'POST',
+      method: 'PUT',
+      body: JSON.stringify(dataSourceData),
       onSuccess: (response) => {
         options.onSuccess(response);
       },

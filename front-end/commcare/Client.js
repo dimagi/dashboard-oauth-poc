@@ -20,7 +20,9 @@ export function fetchCommCareApi(api, authorization, options) {
       method: method,
       headers: new Headers({
         Authorization: authorization,
-      })
+        'Content-Type': 'application/json'
+      }),
+      body: options?.body,
     }
   )
     .then(res => res.json())
