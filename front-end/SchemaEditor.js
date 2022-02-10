@@ -20,7 +20,6 @@ class SchemaEditor extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('unmounting...')
     this.editor.destroy();
   }
 
