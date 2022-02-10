@@ -38,3 +38,17 @@ export function getDataSource(baseUrl, domain, dataSourceId, authorization, opti
     }
   )
 }
+
+
+export function saveDataSource(baseUrl, domain, dataSourceId, dataSourceData, authorization, options) {
+  const api = `${baseUrl}/a/${domain}/api/v0.5/ucr_data_source/${dataSourceId}/?format=json`;
+  fetchCommCareApi(
+    api, authorization, {
+      method: 'POST',
+      onSuccess: (response) => {
+        options.onSuccess(response);
+      },
+      onError: options.onError,
+    }
+  )
+}

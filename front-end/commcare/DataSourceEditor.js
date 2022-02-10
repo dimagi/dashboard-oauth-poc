@@ -1,7 +1,7 @@
-import React, {useState, useEffect}  from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import DomainSelector from "./DomainSelector";
 import {getOAuth2TokenAuthorization} from "./Client";
-import {getDataSource, listDataSources} from "./Reports";
+import {getDataSource, listDataSources, saveDataSource} from "./Reports";
 import SchemaEditor from "../SchemaEditor";
 
 
@@ -41,6 +41,7 @@ function DataSourceSelector(props) {
 
 function DataSourceEditingUI(props) {
   const [dataSource, setDataSource] = useState(null);
+  const editorRef = useRef(null);
   useEffect(() => {
     getDataSource(
       props.config.COMMCARE_URL, props.domain, props.dataSourceId, props.authorization, {
@@ -57,9 +58,28 @@ function DataSourceEditingUI(props) {
     'configured_indicators': dataSource?.configured_indicators,
   }
 
+  const dataSourceSaved = () => {
+    console.log('saved data source!');
+  }
+
+  const saveDataSourceEvent = () => {
+    const updatedDataSource = editorRef.current.editor.getValue();
+    console.log('saving', updatedDataSource);
+    saveDataSource(
+      props.config.COMMCARE_URL, props.domain, props.dataSourceId, updatedDataSource, props.authorization, {
+        onSuccess: dataSourceSaved,
+        onError: () => {
+          console.error('error!');
+        }
+      }
+    );
+  }
   if (props.dataSourceId && dataSource?.id === props.dataSourceId) {
     return (
-      <SchemaEditor dataSource={cleanedDataSource} {...props} />
+      <>
+        <SchemaEditor ref={editorRef} dataSource={cleanedDataSource} {...props} />
+        <button className="btn btn-primary" onClick={saveDataSourceEvent}>Save</button>
+      </>
     );
   } else {
     return <p>Loading...</p>
