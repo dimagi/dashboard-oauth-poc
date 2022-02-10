@@ -10,13 +10,14 @@ export function getOAuth2TokenAuthorization(token) {
 }
 
 export function fetchCommCareApi(api, authorization, options) {
-  let url = new URL(api);
+  const url = new URL(api);
+  const method = options?.method || 'GET';
   if (options.urlParams) {
     url.search = new URLSearchParams(options.urlParams).toString();
   }
   fetch(url,
     {
-      method: "GET",
+      method: method,
       headers: new Headers({
         Authorization: authorization,
       })
