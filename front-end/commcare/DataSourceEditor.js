@@ -41,6 +41,7 @@ function DataSourceSelector(props) {
 
 function DataSourceEditingUI(props) {
   const [dataSource, setDataSource] = useState(null);
+  const [notification, setNotification] = useState('')
   const editorRef = useRef(null);
   useEffect(() => {
     getDataSource(
@@ -59,7 +60,11 @@ function DataSourceEditingUI(props) {
   }
 
   const dataSourceSaved = () => {
-    console.log('saved data source!');
+    console.log('succesfully saved data source!');
+    setNotification(`Successfully saved ${editorRef.current.editor.getValue().display_name}`);
+    setTimeout(2000, () => {
+      setNotification('');
+    })
   }
 
   const saveDataSourceEvent = () => {
@@ -79,6 +84,7 @@ function DataSourceEditingUI(props) {
       <>
         <SchemaEditor ref={editorRef} dataSource={cleanedDataSource} {...props} />
         <button className="btn btn-primary" onClick={saveDataSourceEvent}>Save</button>
+        {notification ? <p className='alert alert-success'>{notification}</p> : ''}
       </>
     );
   } else {
