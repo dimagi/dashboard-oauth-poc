@@ -25,7 +25,13 @@ export function fetchCommCareApi(api, authorization, options) {
       body: options?.body,
     }
   )
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return res.json().then(body => { throw new Error(body.error) });
+      }
+    })
     .then(response => {
       if (options.onSuccess) {
         options.onSuccess(response);

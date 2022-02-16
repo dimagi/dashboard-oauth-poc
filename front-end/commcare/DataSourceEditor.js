@@ -42,6 +42,7 @@ function DataSourceSelector(props) {
 function DataSourceEditingUI(props) {
   const [dataSource, setDataSource] = useState(null);
   const [notification, setNotification] = useState('')
+  const [notificationType, setNotificationType] = useState('')
   const editorRef = useRef(null);
   useEffect(() => {
     getDataSource(
@@ -60,22 +61,25 @@ function DataSourceEditingUI(props) {
   }
 
   const dataSourceSaved = () => {
-    console.log('succesfully saved data source!');
     setNotification(`Successfully saved ${editorRef.current.editor.getValue().display_name}`);
-    setTimeout(2000, () => {
+    setNotificationType('success');
+    setTimeout(() => {
       setNotification('');
-    })
+      setNotificationType('');
+    }, 2000);
+  }
+
+  const dataSourceApiError = (e) => {
+    setNotification(e.message)
+    setNotificationType('danger')
   }
 
   const saveDataSourceEvent = () => {
     const updatedDataSource = editorRef.current.editor.getValue();
-    console.log('saving', updatedDataSource);
     saveDataSource(
       props.config.COMMCARE_URL, props.domain, props.dataSourceId, updatedDataSource, props.authorization, {
         onSuccess: dataSourceSaved,
-        onError: () => {
-          console.error('error!');
-        }
+        onError: dataSourceApiError,
       }
     );
   }
@@ -84,7 +88,7 @@ function DataSourceEditingUI(props) {
       <>
         <SchemaEditor ref={editorRef} dataSource={cleanedDataSource} {...props} />
         <button className="btn btn-primary" onClick={saveDataSourceEvent}>Save</button>
-        {notification ? <p className='alert alert-success'>{notification}</p> : ''}
+        {notification ? <p className={'alert alert-' + notificationType}>{notification}</p> : ''}
       </>
     );
   } else {
