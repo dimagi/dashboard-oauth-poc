@@ -57,15 +57,13 @@ function ApiExplorer(props) {
       <p>Choose an API below, or enter the URL directly.</p>
       <DomainSelector baseUrl={props.config.COMMCARE_URL} authToken={props.authToken} domainSelected={(domain) => domainChanged(domain)} />
       <APISelector domain={domain} apiSelected={apiSelected}/>
-      <h2>API Url</h2>
-      <input type="text" style={{width: "60em"}} value={computedApiUrl} onChange={(event) => manuallySetApiUrl(event.target.value)}/>
-      <br />
-      <br />
-      <input type="button" onClick={() => hitApi()} value="Request API"/>
-      <h2>API Results</h2>
-      <pre>
+      <label>API Url</label>
+      <input className="form-control mb-2" type="text" style={{width: "60em"}} value={computedApiUrl} onChange={(event) => manuallySetApiUrl(event.target.value)}/>
+      <input className="btn btn-primary" type="button" onClick={() => hitApi()} value="Request API"/>
+      <h4 className="mt-4">API Results</h4>
+      <pre className="bg-light px-2 py-2"><code>
         {isLoading ? "Loading..." : apiData}
-      </pre>
+      </code></pre>
     </div>
   );
 }
