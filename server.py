@@ -39,8 +39,8 @@ def oauth_callback():
         resp = make_response(redirect(url_for('home')))
 
         # set cookies so they are available to the front end
-        resp.set_cookie(ACCESS_TOKEN_COOKIE_NAME, access_token)
-        resp.set_cookie(REFRESH_TOKEN_COOKIE_NAME, refresh_token)
+        resp.set_cookie(ACCESS_TOKEN_COOKIE_NAME, access_token, secure=True)
+        resp.set_cookie(REFRESH_TOKEN_COOKIE_NAME, refresh_token, secure=True)
         return resp
     else:
         # todo: better handle error case and such
